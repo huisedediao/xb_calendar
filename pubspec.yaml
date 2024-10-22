@@ -1,7 +1,7 @@
 name: xb_calendar
-description: "A new Flutter package project."
+description: "flutter calendar"
 version: 0.0.1
-homepage:
+homepage: https://github.com/huisedediao/xb_calendar.git
 
 environment:
   sdk: '>=3.2.2 <4.0.0'
@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  xb_scaffold: ^0.0.137
 
 dev_dependencies:
   flutter_test:
@@ -22,6 +24,8 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
+  assets:
+    - assets/images/
   # To add assets to your package, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
