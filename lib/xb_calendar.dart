@@ -234,7 +234,8 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
               coverTransparentWhileOpacity: true,
               onTap: onPrevious,
               child: Padding(
-                padding: EdgeInsets.only(left: spaces.gapLess, right: gap),
+                padding: EdgeInsets.only(
+                    left: spaces.gapLess, right: gap, top: 5, bottom: 5),
                 child: const XBImage(
                   "packages/xb_calendar/assets/images/icon_previous.png",
                   width: 18,
@@ -246,7 +247,8 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
               coverTransparentWhileOpacity: true,
               onTap: onNext,
               child: Padding(
-                padding: EdgeInsets.only(left: gap, right: spaces.gapLess),
+                padding: EdgeInsets.only(
+                    left: gap, right: spaces.gapLess, top: 5, bottom: 5),
                 child: const XBImage(
                   "packages/xb_calendar/assets/images/icon_next.png",
                   width: 18,
