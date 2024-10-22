@@ -102,7 +102,10 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
                   Expanded(
                       child: Container(
                           alignment: Alignment.center,
-                          child: Text(title ?? "日期选择"))),
+                          child: Text(
+                            title ?? "日期选择",
+                            style: display?.textStyleTitle,
+                          ))),
                   XBButton(
                     onTap: () {
                       pop();
@@ -138,7 +141,10 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
                   Expanded(
                     child: Container(
                         alignment: Alignment.center,
-                        child: Text(vm.scrollDate)),
+                        child: Text(
+                          vm.scrollDate,
+                          style: display?.textStyleScrollDate,
+                        )),
                   ),
                   Expanded(
                     child: chooseBtn(

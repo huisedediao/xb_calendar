@@ -80,6 +80,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   display: XBCalendarDisplay(
                     dDayHeight: 40,
                     dDayRowGap: 3,
+                    textStyleTitle: TextStyle(
+                        fontSize: 18, fontWeight: fontWeights.semiBold),
+                    textStyleScrollDate: TextStyle(
+                        fontSize: 16, fontWeight: fontWeights.semiBold),
                     // dDoneBtnRadius: 20, dDoneBtnHeight: 40,
                     // bgColorDoneBtn: Colors.red,
                     // textStyleDoneBtn:

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class XBCalendarDisplay {
+  final TextStyle? textStyleTitle;
   final TextStyle? textStyleDoneBtn;
+  final TextStyle? textStyleScrollDate;
   final double? dDoneBtnRadius;
   final double? dDoneBtnHeight;
   final Color? bgColorDoneBtn;
@@ -14,7 +16,10 @@ class XBCalendarDisplay {
   final double? dDayRowGap;
   final double? dDayHeight;
   XBCalendarDisplay({
+    this.textStyleTitle,
     this.textStyleDoneBtn,
+    this.dDayHeight,
+    this.textStyleScrollDate,
     this.dDoneBtnRadius,
     this.dDoneBtnHeight,
     this.bgColorDoneBtn,
@@ -25,6 +30,5 @@ class XBCalendarDisplay {
     this.colorInRangeDateText,
     this.colorInRangeDateBg,
     this.dDayRowGap,
-    this.dDayHeight,
   });
 }
