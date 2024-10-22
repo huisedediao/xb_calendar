@@ -5,3 +5,7 @@
 ## 0.0.2
 
 * optimized
+
+## 0.0.3
+
+* optimized

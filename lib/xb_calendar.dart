@@ -205,7 +205,7 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
                     child: Container(
                         alignment: Alignment.center,
                         height: display?.dDoneBtnHeight ?? 50,
-                        color: display?.bgColorDoneBtn ?? Colors.blue,
+                        color: display?.colorDoneBtnBg ?? Colors.blue,
                         child: Text(
                           doneBtnText ?? "确定",
                           style: display?.textStyleDoneBtn ??
@@ -231,6 +231,7 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
           mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
           children: [
             XBButton(
+              coverTransparentWhileOpacity: true,
               onTap: onPrevious,
               child: Padding(
                 padding: EdgeInsets.only(left: spaces.gapLess, right: gap),
@@ -242,6 +243,7 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
             ),
             Text(text),
             XBButton(
+              coverTransparentWhileOpacity: true,
               onTap: onNext,
               child: Padding(
                 padding: EdgeInsets.only(left: gap, right: spaces.gapLess),

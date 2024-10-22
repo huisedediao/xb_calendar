@@ -6,7 +6,7 @@ class XBCalendarDisplay {
   final TextStyle? textStyleScrollDate;
   final double? dDoneBtnRadius;
   final double? dDoneBtnHeight;
-  final Color? bgColorDoneBtn;
+  final Color? colorDoneBtnBg;
   final Color? colorSelectedDateText;
   final Color? colorSelectedDateBg;
   final Color? colorTodayText;
@@ -22,7 +22,7 @@ class XBCalendarDisplay {
     this.textStyleScrollDate,
     this.dDoneBtnRadius,
     this.dDoneBtnHeight,
-    this.bgColorDoneBtn,
+    this.colorDoneBtnBg,
     this.colorSelectedDateText,
     this.colorSelectedDateBg,
     this.colorTodayText,
