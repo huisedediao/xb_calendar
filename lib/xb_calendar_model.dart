@@ -120,28 +120,39 @@ class XBCalendarMonth {
             selectedDates.first.day == day.dateTime.day) {
           day.isSelected = true;
           day.isInRange = false;
+          day.isSelectedStart = true;
+          day.isSelectedEnd = true;
         } else {
           day.isSelected = false;
           day.isInRange = false;
+          day.isSelectedStart = false;
+          day.isSelectedEnd = false;
         }
       }
     } else if (selectedDates.length == 2) {
       for (var day in days) {
-        if ((selectedDates.first.year == day.dateTime.year &&
-                selectedDates.first.month == day.dateTime.month &&
-                selectedDates.first.day == day.dateTime.day) ||
-            (selectedDates.last.year == day.dateTime.year &&
-                selectedDates.last.month == day.dateTime.month &&
-                selectedDates.last.day == day.dateTime.day)) {
+        bool isStart = selectedDates.first.year == day.dateTime.year &&
+            selectedDates.first.month == day.dateTime.month &&
+            selectedDates.first.day == day.dateTime.day;
+        bool isEnd = selectedDates.last.year == day.dateTime.year &&
+            selectedDates.last.month == day.dateTime.month &&
+            selectedDates.last.day == day.dateTime.day;
+        if (isStart || isEnd) {
           day.isSelected = true;
           day.isInRange = false;
+          day.isSelectedStart = isStart;
+          day.isSelectedEnd = isEnd;
         } else if (day.dateTime.isAfter(selectedDates.first) &&
             day.dateTime.isBefore(selectedDates.last)) {
           day.isSelected = false;
           day.isInRange = true;
+          day.isSelectedStart = false;
+          day.isSelectedEnd = false;
         } else {
           day.isSelected = false;
           day.isInRange = false;
+          day.isSelectedStart = false;
+          day.isSelectedEnd = false;
         }
       }
     }
@@ -154,6 +165,8 @@ class XBCalendarDay {
   bool isSelected = false;
   bool isInRange = false;
   bool isToday;
+  bool isSelectedStart = false;
+  bool isSelectedEnd = false;
   XBCalendarDay(
       {required this.dateTime, required this.isEnable, required this.isToday});
   @override

@@ -18,23 +18,6 @@ class XBCalendarPainter extends CustomPainter {
     // 定义圆角半径
     const radius = Radius.circular(10);
 
-    XBCalendarDay? startDay;
-    XBCalendarDay? endDay;
-
-    for (var element in month.days) {
-      if (element.isSelected) {
-        if (startDay == null) {
-          startDay = element;
-        } else if (endDay == null) {
-          endDay = element;
-          break;
-        }
-      }
-    }
-    if (startDay != null && endDay == null) {
-      endDay = startDay;
-    }
-
     // 行列布局，每行7天
     for (int i = 0; i < month.days.length; i++) {
       final day = month.days[i];
@@ -72,10 +55,9 @@ class XBCalendarPainter extends CustomPainter {
 
       // 绘制日期方块
       final rect = Rect.fromLTWH(x, y, daySize.width, daySize.height);
-      bool isStartDate = day == startDay;
-      bool isEndDate = day == endDay;
+
       // 圆角处理，根据开始日期和结束日期的状态判断
-      if (isStartDate && isEndDate) {
+      if (day.isSelectedStart && day.isSelectedEnd) {
         // 如果开始日期和结束日期是同一天，则四个角都切圆角
         final rrect = RRect.fromRectAndCorners(rect,
             topLeft: radius,
@@ -83,12 +65,12 @@ class XBCalendarPainter extends CustomPainter {
             bottomLeft: radius,
             bottomRight: radius);
         canvas.drawRRect(rrect, paint);
-      } else if (isStartDate) {
+      } else if (day.isSelectedStart) {
         // 如果是开始日期，则只切左上和左下角
         final rrect =
             RRect.fromRectAndCorners(rect, topLeft: radius, bottomLeft: radius);
         canvas.drawRRect(rrect, paint);
-      } else if (isEndDate) {
+      } else if (day.isSelectedEnd) {
         // 如果是结束日期，则只切右上和右下角
         final rrect = RRect.fromRectAndCorners(rect,
             topRight: radius, bottomRight: radius);
