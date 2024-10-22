@@ -40,7 +40,7 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
   final String yearUnit;
 
   /// 月的单位
-  final String? monthUnit;
+  final String monthUnit;
 
   /// weekday的显示
   final List<String>? weekDays;
@@ -188,6 +188,8 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
                     month: month,
                     onSelectDate: vm.onSelectDate,
                     display: display,
+                    yearUnit: yearUnit,
+                    monthUnit: monthUnit,
                   );
                 },
               ),

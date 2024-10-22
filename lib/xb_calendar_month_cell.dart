@@ -9,11 +9,15 @@ class XBCalendarMonthCell extends XBWidget<XBCalendarMonthCellVM> {
   final XBCalendarMonth month;
   final ValueChanged<DateTime> onSelectDate;
   final XBCalendarDisplay? display;
+  final String yearUnit;
+  final String monthUnit;
 
   const XBCalendarMonthCell(
       {required this.month,
       required this.onSelectDate,
       this.display,
+      this.yearUnit = "年",
+      this.monthUnit = "月",
       super.key});
 
   @override
@@ -48,7 +52,8 @@ class XBCalendarMonthCell extends XBWidget<XBCalendarMonthCellVM> {
               child: Container(
                   height: xbCalendarMonthH,
                   alignment: Alignment.center,
-                  child: Text("${month.year} 年 ${month.month} 月"))),
+                  child: Text(
+                      "${month.year} $yearUnit ${month.month} $monthUnit"))),
           Positioned(
               top: 50,
               left: 0,
