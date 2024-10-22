@@ -9,6 +9,9 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
   /// 选择完成回调
   final ValueChanged<List<DateTime>> onDone;
 
+  /// 即将完成回调
+  final XBValueGetter<bool, List<DateTime>>? onWillDone;
+
   /// 取消回调
   final VoidCallback? onCancel;
 
@@ -47,6 +50,7 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
 
   XBCalendar(
       {required this.onDone,
+      this.onWillDone,
       this.onCancel,
       this.title,
       this.doneBtnText,
@@ -195,9 +199,12 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
                   right: spaces.gapDef,
                   bottom: safeAreaBottom + spaces.gapDef),
               child: XBButton(
-                  onTap: () {
-                    pop();
-                    onDone.call(vm.selectedDates);
+                  onTap: () async {
+                    bool pass = onWillDone?.call(vm.selectedDates) ?? true;
+                    if (pass) {
+                      pop();
+                      onDone.call(vm.selectedDates);
+                    }
                   },
                   child: ClipRRect(
                     borderRadius:
@@ -396,9 +403,10 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     }
   }
 
-  String get scrollYear => '$scrollYearInt${widget.yearUnit}';
+  String get scrollYear => '$scrollYearInt';
 
-  String get scrollDate => "$scrollYear$scrollMonth";
+  String get scrollDate =>
+      "$scrollYear${widget.yearUnit}$scrollMonth${widget.monthUnit}";
 
   XBCalendarYear? yearModelForYear(int year) {
     for (var element in years) {
@@ -430,7 +438,7 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     }
   }
 
-  String get scrollMonth => '$scrollMonthInt${widget.monthUnit}';
+  String get scrollMonth => '$scrollMonthInt';
 
   List<String> get weekDays =>
       widget.weekDays ?? ["日", "一", "二", "三", "四", "五", "六"];

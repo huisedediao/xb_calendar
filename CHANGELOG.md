@@ -18,3 +18,10 @@
 
 * optimized
 
+## 0.0.6
+
+* 新增onWillDone
+
+## 0.0.7
+
+* optimized
