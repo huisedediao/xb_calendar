@@ -34,9 +34,12 @@ class XBCalendarYear {
     return ret;
   }
 
+  double? _height;
   double get height {
+    if (_height != null) return _height!;
     if (months.isEmpty) return 0;
-    return offset(months.last.month + 1);
+    _height = offset(months.last.month + 1);
+    return _height!;
   }
 
   /// 月份的起始偏移
