@@ -77,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   minEnableDateTime: DateTime(2021, 11, 5),
                   maxEnableDateTime: DateTime(2024, 10, 25),
                   selectedDates: selectedDates,
+                  isSingle: true,
                   display: XBCalendarDisplay(
                     dDayHeight: 40,
                     dDayRowGap: 3,

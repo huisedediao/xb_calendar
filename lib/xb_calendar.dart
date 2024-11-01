@@ -48,6 +48,9 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
   /// weekday的显示
   final XBCalendarDisplay? display;
 
+  /// 单选
+  final bool isSingle;
+
   XBCalendar(
       {required this.onDone,
       this.onWillDone,
@@ -63,6 +66,7 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
       this.monthUnit = "月",
       this.weekDays,
       this.display,
+      this.isSingle = false,
       super.key}) {
     xbCalendarDayH = display?.dDayHeight;
     xbCalendarDayRowGap = display?.dDayRowGap ?? 0;
@@ -386,7 +390,7 @@ class XBCalendarVM extends XBVM<XBCalendar> {
   Map<int, XBCalendarYear> years = {};
 
   onSelectDate(DateTime dateTime) {
-    if (selectedDates.length == 2) {
+    if (selectedDates.length == 2 || widget.isSingle) {
       selectedDates.clear();
     }
     selectedDates.add(dateTime);
