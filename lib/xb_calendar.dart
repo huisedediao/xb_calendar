@@ -310,8 +310,12 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     super.dispose();
   }
 
+  double _lastOffset = 0;
   offsetListener() {
-    notify();
+    if ((controller.offset - _lastOffset).abs() > 10) {
+      _lastOffset = controller.offset;
+      notify();
+    }
   }
 
   goCurrentDay() {
