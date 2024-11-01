@@ -36,6 +36,9 @@ class XBCalendarHms extends XBCalendar {
   @override
   double get donePaddingTop => 0;
 
+  TextStyle get selectedStyle =>
+      TextStyle(color: display?.colorHMSUnit ?? Colors.blue);
+
   @override
   Widget hms(XBCalendarVM vm) {
     return SizedBox(
@@ -51,6 +54,7 @@ class XBCalendarHms extends XBCalendar {
                 selecteds: castVM(vm).selectedHMS,
                 onSelected: castVM(vm).onSelected,
                 selectedBG: Container(),
+                selectedStyle: selectedStyle,
               ),
               Positioned.fill(
                   child: Row(
@@ -62,8 +66,7 @@ class XBCalendarHms extends XBCalendar {
                             padding: const EdgeInsets.only(left: 50),
                             child: Text(
                               "h",
-                              style: TextStyle(
-                                  color: display?.colorHMSUnit ?? Colors.blue),
+                              style: selectedStyle,
                             ),
                           ))),
                   Expanded(
@@ -73,8 +76,7 @@ class XBCalendarHms extends XBCalendar {
                             padding: const EdgeInsets.only(left: 50),
                             child: Text(
                               "m",
-                              style: TextStyle(
-                                  color: display?.colorHMSUnit ?? Colors.blue),
+                              style: selectedStyle,
                             ),
                           ))),
                   Expanded(
@@ -84,8 +86,7 @@ class XBCalendarHms extends XBCalendar {
                             padding: const EdgeInsets.only(left: 50),
                             child: Text(
                               "s",
-                              style: TextStyle(
-                                  color: display?.colorHMSUnit ?? Colors.blue),
+                              style: selectedStyle,
                             ),
                           ))),
                 ],
