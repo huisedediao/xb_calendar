@@ -9,7 +9,8 @@ class XBCalendarYear {
       required DateTime minDateTime,
       required DateTime maxDateTime,
       required DateTime? minEnableDateTime,
-      required DateTime? maxEnableDateTime}) {
+      required DateTime? maxEnableDateTime,
+      required List<DateTime>? markDates}) {
     for (int i = 1; i <= 12; i++) {
       if ((year == minDateTime.year && i < minDateTime.month) ||
           (year == maxDateTime.year && i > maxDateTime.month)) continue;
@@ -17,7 +18,8 @@ class XBCalendarYear {
           year: year,
           month: i,
           minEnableDateTime: minEnableDateTime,
-          maxEnableDateTime: maxEnableDateTime));
+          maxEnableDateTime: maxEnableDateTime,
+          markDates: markDates));
     }
   }
 
@@ -68,7 +70,8 @@ class XBCalendarMonth {
       {required this.year,
       required this.month,
       required DateTime? minEnableDateTime,
-      required DateTime? maxEnableDateTime}) {
+      required DateTime? maxEnableDateTime,
+      required List<DateTime>? markDates}) {
     /// 根据年份月份，生成日期，需要考虑闰年
     final DateTime lastDay = DateTime(year, month + 1, 0);
     final now = DateTime.now();
@@ -87,8 +90,21 @@ class XBCalendarMonth {
       _days.add(XBCalendarDay(
           dateTime: dateTime,
           isEnable: isEnable,
-          isToday: year == now.year && month == now.month && i == now.day));
+          isToday: year == now.year && month == now.month && i == now.day,
+          isMark: isMark(dateTime, markDates)));
     }
+  }
+
+  bool isMark(DateTime dateTime, List<DateTime>? markDates) {
+    if (markDates == null) return false;
+    for (var element in markDates) {
+      if (element.year == dateTime.year &&
+          element.month == dateTime.month &&
+          element.day == dateTime.day) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /// 本月有多少行
@@ -173,8 +189,12 @@ class XBCalendarDay {
   bool isToday;
   bool isSelectedStart = false;
   bool isSelectedEnd = false;
+  final bool isMark;
   XBCalendarDay(
-      {required this.dateTime, required this.isEnable, required this.isToday});
+      {required this.dateTime,
+      required this.isEnable,
+      required this.isToday,
+      this.isMark = false});
   @override
   String toString() {
     return dateTime.day.toString();

@@ -93,6 +93,36 @@ class XBCalendarPainter extends CustomPainter {
         Offset(x + (daySize.width - textPainter.width) / 2,
             y + (daySize.height - textPainter.height) / 2),
       );
+
+      // 绘制标记
+      if (day.isMark) {
+        Color markColor;
+        if (day.isSelectedStart || day.isSelectedEnd) {
+          markColor = display?.colorMarkSelected ?? Colors.red;
+        } else if (day.isInRange) {
+          markColor = display?.colorMarkInRange ?? Colors.red;
+        } else {
+          markColor = display?.colorMark ?? Colors.red;
+        }
+        final markPainter = TextPainter(
+          text: TextSpan(
+              text: "●",
+              style: TextStyle(
+                  color: markColor, fontSize: display?.dMarkSize ?? 12)),
+          textAlign: TextAlign.center,
+          textDirection: TextDirection.ltr,
+        );
+        markPainter.layout(minWidth: 0, maxWidth: daySize.width);
+        markPainter.paint(
+          canvas,
+          Offset(
+              x + (daySize.width - markPainter.width) / 2,
+              y +
+                  (daySize.height - markPainter.height) / 2 +
+                  (textStyle.fontSize ?? 0).toDouble() -
+                  2),
+        );
+      }
     }
   }
 

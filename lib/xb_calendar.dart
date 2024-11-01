@@ -36,6 +36,9 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
   /// 选择的日期
   final List<DateTime>? selectedDates;
 
+  /// 有标记的日期
+  final List<DateTime>? markDates;
+
   /// 年的单位
   final String yearUnit;
 
@@ -67,6 +70,7 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
       this.weekDays,
       this.display,
       this.isSingle = false,
+      this.markDates,
       super.key}) {
     xbCalendarDayH = display?.dDayHeight;
     xbCalendarDayRowGap = display?.dDayRowGap ?? 0;
@@ -295,7 +299,8 @@ class XBCalendarVM extends XBVM<XBCalendar> {
           minDateTime: minDateTime,
           maxDateTime: maxDateTime,
           minEnableDateTime: widget.minEnableDateTime,
-          maxEnableDateTime: widget.maxEnableDateTime);
+          maxEnableDateTime: widget.maxEnableDateTime,
+          markDates: widget.markDates);
     }
     selectedDates = widget.selectedDates ?? [];
     selectedDates.sort();

@@ -75,11 +75,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   minDateTime: DateTime(2021, 11),
                   maxDateTime: DateTime(2025, 10),
                   minEnableDateTime: DateTime(2021, 11, 5),
-                  maxEnableDateTime: DateTime(2024, 10, 25),
+                  maxEnableDateTime: DateTime(2024, 11, 25),
                   selectedDates: selectedDates,
-                  isSingle: true,
+                  markDates: [
+                    DateTime(2024, 10, 30),
+                    DateTime(2024, 10, 31),
+                    DateTime(2024, 11, 1),
+                    DateTime(2024, 11, 2)
+                  ],
+                  // isSingle: true,
                   display: XBCalendarDisplay(
-                    dDayHeight: 40,
+                    dMarkSize: 5,
+                    colorMark: Colors.orange,
+                    colorMarkInRange: Colors.black,
+                    colorMarkSelected: Colors.blueGrey,
+                    dDayHeight: 50,
                     dDayRowGap: 3,
                     textStyleTitle: TextStyle(
                         fontSize: 18, fontWeight: fontWeights.semiBold),

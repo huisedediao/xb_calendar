@@ -13,12 +13,15 @@ class XBCalendarDisplay {
   final Color? colorSelectedTodayText;
   final Color? colorInRangeDateText;
   final Color? colorInRangeDateBg;
+  final Color? colorMark;
+  final Color? colorMarkSelected;
+  final Color? colorMarkInRange;
+  final double? dMarkSize;
   final double? dDayRowGap;
   final double? dDayHeight;
   XBCalendarDisplay({
     this.textStyleTitle,
     this.textStyleDoneBtn,
-    this.dDayHeight,
     this.textStyleScrollDate,
     this.dDoneBtnRadius,
     this.dDoneBtnHeight,
@@ -29,6 +32,11 @@ class XBCalendarDisplay {
     this.colorSelectedTodayText,
     this.colorInRangeDateText,
     this.colorInRangeDateBg,
+    this.colorMark,
+    this.colorMarkSelected,
+    this.colorMarkInRange,
+    this.dMarkSize,
     this.dDayRowGap,
+    this.dDayHeight,
   });
 }
