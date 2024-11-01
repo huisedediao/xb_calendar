@@ -201,7 +201,7 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
               ),
             )),
             hms(vm),
-            xbSpaceHeight(10),
+            xbSpaceHeight(donePaddingTop),
             Padding(
               padding: EdgeInsets.only(
                   left: spaces.gapDef,
@@ -228,6 +228,8 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
       ),
     );
   }
+
+  double get donePaddingTop => 10;
 
   Widget chooseBtn(
       {required String text,

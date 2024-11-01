@@ -16,6 +16,7 @@ class XBCalendarDisplay {
   final Color? colorMark;
   final Color? colorMarkSelected;
   final Color? colorMarkInRange;
+  final Color? colorHMSUnit;
   final double? dMarkSize;
   final double? dDayRowGap;
   final double? dDayHeight;
@@ -36,6 +37,7 @@ class XBCalendarDisplay {
     this.colorMark,
     this.colorMarkSelected,
     this.colorMarkInRange,
+    this.colorHMSUnit,
     this.dMarkSize,
     this.dDayRowGap,
     this.dDayHeight,

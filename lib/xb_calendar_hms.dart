@@ -34,17 +34,63 @@ class XBCalendarHms extends XBCalendar {
   }
 
   @override
+  double get donePaddingTop => 0;
+
+  @override
   Widget hms(XBCalendarVM vm) {
     return SizedBox(
-      height: 150,
+      height: 140,
       child: Column(
         children: [
           xbLine(),
           Expanded(
-              child: XBTitlePickerMulti(
-            mulTitles: castVM(vm).hms,
-            selecteds: castVM(vm).selectedHMS,
-            onSelected: castVM(vm).onSelected,
+              child: Stack(
+            children: [
+              XBTitlePickerMulti(
+                mulTitles: castVM(vm).hms,
+                selecteds: castVM(vm).selectedHMS,
+                onSelected: castVM(vm).onSelected,
+                selectedBG: Container(),
+              ),
+              Positioned.fill(
+                  child: Row(
+                children: [
+                  Expanded(
+                      child: Container(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 50),
+                            child: Text(
+                              "h",
+                              style: TextStyle(
+                                  color: display?.colorHMSUnit ?? Colors.blue),
+                            ),
+                          ))),
+                  Expanded(
+                      child: Container(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 50),
+                            child: Text(
+                              "m",
+                              style: TextStyle(
+                                  color: display?.colorHMSUnit ?? Colors.blue),
+                            ),
+                          ))),
+                  Expanded(
+                      child: Container(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 50),
+                            child: Text(
+                              "s",
+                              style: TextStyle(
+                                  color: display?.colorHMSUnit ?? Colors.blue),
+                            ),
+                          ))),
+                ],
+              ))
+            ],
           ))
         ],
       ),
