@@ -425,9 +425,14 @@ class XBCalendarVM extends XBVM<XBCalendar> {
   String get scrollDate =>
       "$scrollYear${widget.yearUnit}$scrollMonth${widget.monthUnit}";
 
+  final Map<int, XBCalendarYear> _yearModelForYearMap = {};
   XBCalendarYear? yearModelForYear(int year) {
+    if (_yearModelForYearMap[year] != null) {
+      return _yearModelForYearMap[year]!;
+    }
     for (var element in years.values) {
       if (element.year == year) {
+        _yearModelForYearMap[year] = element;
         return element;
       }
     }
