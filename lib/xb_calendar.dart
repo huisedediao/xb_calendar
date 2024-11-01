@@ -163,12 +163,7 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
             SizedBox(
               height: 50,
               child: Row(
-                children: List.generate(vm.weekDays.length, (index) {
-                  return Expanded(
-                      child: Container(
-                          alignment: Alignment.center,
-                          child: Text(vm.weekDays[index])));
-                }),
+                children: vm.weekDaysWidgets,
               ),
             ),
             Container(
@@ -278,6 +273,8 @@ class XBCalendarVM extends XBVM<XBCalendar> {
   late DateTime minDateTime;
   late DateTime maxDateTime;
 
+  late List<Widget> weekDaysWidgets;
+
   @override
   widgetSizeDidChanged() {
     xbCalendarMaxW = widgetSize.width;
@@ -301,6 +298,9 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     updateYears();
     controller = ScrollController(initialScrollOffset: initOffset);
     controller.addListener(offsetListener);
+    weekDaysWidgets = weekDays
+        .map((day) => Expanded(child: Center(child: Text(day))))
+        .toList();
   }
 
   @override
