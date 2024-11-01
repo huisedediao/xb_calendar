@@ -289,12 +289,12 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     maxDateTime = widget.maxDateTime ?? DateTime(createYear + 25, 1);
     for (int i = minDateTime.year; i <= maxDateTime.year; i++) {
       if (i < minDateTime.year || i > maxDateTime.year) continue;
-      years.add(XBCalendarYear(
+      years[i] = XBCalendarYear(
           year: i,
           minDateTime: minDateTime,
           maxDateTime: maxDateTime,
           minEnableDateTime: widget.minEnableDateTime,
-          maxEnableDateTime: widget.maxEnableDateTime));
+          maxEnableDateTime: widget.maxEnableDateTime);
     }
     selectedDates = widget.selectedDates ?? [];
     selectedDates.sort();
@@ -322,7 +322,7 @@ class XBCalendarVM extends XBVM<XBCalendar> {
   int get monthCount {
     if (_monthCount == null) {
       int i = 0;
-      for (var year in years) {
+      for (var year in years.values) {
         for (var _ in year.months) {
           i++;
         }
@@ -334,7 +334,7 @@ class XBCalendarVM extends XBVM<XBCalendar> {
 
   XBCalendarMonth monthForIndex(int index) {
     int i = 0;
-    for (var year in years) {
+    for (var year in years.values) {
       for (var month in year.months) {
         if (i == index) {
           return month;
@@ -345,9 +345,14 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     throw Exception("传入的序号不对");
   }
 
+  final Map<String, double> _offsetForYearMonthMap = {};
   double offsetForDateTime(DateTime dateTime) {
+    String key = "${dateTime.year}_${dateTime.month}";
+    if (_offsetForYearMonthMap[key] != null) {
+      return _offsetForYearMonthMap[key]!;
+    }
     double ret = 0;
-    for (var element in years) {
+    for (var element in years.values) {
       if (element.year < dateTime.year) {
         ret += element.height;
       } else if (element.year == dateTime.year) {
@@ -357,6 +362,7 @@ class XBCalendarVM extends XBVM<XBCalendar> {
         break;
       }
     }
+    _offsetForYearMonthMap[key] = ret;
     return ret;
   }
 
@@ -368,7 +374,7 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     }
   }
 
-  List<XBCalendarYear> years = [];
+  Map<int, XBCalendarYear> years = {};
 
   onSelectDate(DateTime dateTime) {
     if (selectedDates.length == 2) {
@@ -381,7 +387,7 @@ class XBCalendarVM extends XBVM<XBCalendar> {
   }
 
   updateYears() {
-    for (var year in years) {
+    for (var year in years.values) {
       year.updateSelectState(selectedDates);
     }
   }
@@ -392,7 +398,7 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     try {
       double offset = 0;
       XBCalendarYear? year;
-      for (var element in years) {
+      for (var element in years.values) {
         offset += element.height;
         if (offset > controller.offset) {
           year = element;
@@ -415,7 +421,7 @@ class XBCalendarVM extends XBVM<XBCalendar> {
       "$scrollYear${widget.yearUnit}$scrollMonth${widget.monthUnit}";
 
   XBCalendarYear? yearModelForYear(int year) {
-    for (var element in years) {
+    for (var element in years.values) {
       if (element.year == year) {
         return element;
       }
