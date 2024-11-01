@@ -16,7 +16,7 @@ class XBCalendarPainter extends CustomPainter {
     final paint = Paint();
 
     // 定义圆角半径
-    const radius = Radius.circular(10);
+    final radius = Radius.circular(display?.dDayRadius ?? 10);
 
     // 行列布局，每行7天
     for (int i = 0; i < month.days.length; i++) {

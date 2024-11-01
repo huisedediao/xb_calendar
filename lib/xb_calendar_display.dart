@@ -19,6 +19,7 @@ class XBCalendarDisplay {
   final double? dMarkSize;
   final double? dDayRowGap;
   final double? dDayHeight;
+  final double? dDayRadius;
   XBCalendarDisplay({
     this.textStyleTitle,
     this.textStyleDoneBtn,
@@ -38,5 +39,6 @@ class XBCalendarDisplay {
     this.dMarkSize,
     this.dDayRowGap,
     this.dDayHeight,
+    this.dDayRadius,
   });
 }

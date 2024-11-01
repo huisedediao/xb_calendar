@@ -91,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     colorMarkSelected: Colors.blueGrey,
                     dDayHeight: 50,
                     dDayRowGap: 3,
+                    dDayRadius: 25,
                     textStyleTitle: TextStyle(
                         fontSize: 18, fontWeight: fontWeights.semiBold),
                     textStyleScrollDate: TextStyle(
