@@ -12,6 +12,9 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
   /// 即将完成回调
   final XBValueGetter<bool, List<DateTime>>? onWillDone;
 
+  /// 滚动导致月份改变回调
+  final ValueChanged<DateTime>? onMonthChange;
+
   /// 取消回调
   final VoidCallback? onCancel;
 
@@ -57,6 +60,7 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
   XBCalendar(
       {required this.onDone,
       this.onWillDone,
+      this.onMonthChange,
       this.onCancel,
       this.title,
       this.doneBtnText,
@@ -285,6 +289,8 @@ class XBCalendarVM extends XBVM<XBCalendar> {
 
   late List<Widget> weekDaysWidgets;
 
+  DateTime? _scrollMonth;
+
   onDone() async {
     bool pass = widget.onWillDone?.call(selectedDates) ?? true;
     if (pass) {
@@ -489,7 +495,14 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     }
   }
 
-  String get scrollMonth => '$scrollMonthInt';
+  String get scrollMonth {
+    DateTime newDate = DateTime(scrollYearInt, scrollMonthInt);
+    if (newDate.month != _scrollMonth?.month) {
+      _scrollMonth = newDate;
+      widget.onMonthChange?.call(_scrollMonth!);
+    }
+    return '$scrollMonthInt';
+  }
 
   List<String> get weekDays =>
       widget.weekDays ?? ["日", "一", "二", "三", "四", "五", "六"];
@@ -527,8 +540,10 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     }
     if (year < minDateTime.year ||
         (year == minDateTime.year && month < minDateTime.month)) return;
-    controller.animateTo(offsetForDateTime(DateTime(year, month)),
-        duration: const Duration(milliseconds: 500), curve: Curves.linear);
+    controller
+        .animateTo(offsetForDateTime(DateTime(year, month)),
+            duration: const Duration(milliseconds: 500), curve: Curves.linear)
+        .then((value) => notify());
   }
 
   nextMonth() {
@@ -542,7 +557,9 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     }
     if (year > maxDateTime.year ||
         (year == maxDateTime.year && month > maxDateTime.month)) return;
-    controller.animateTo(offsetForDateTime(DateTime(year, month)),
-        duration: const Duration(milliseconds: 500), curve: Curves.linear);
+    controller
+        .animateTo(offsetForDateTime(DateTime(year, month)),
+            duration: const Duration(milliseconds: 500), curve: Curves.linear)
+        .then((value) => notify());
   }
 }

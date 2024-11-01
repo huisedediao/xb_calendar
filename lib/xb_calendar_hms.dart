@@ -8,6 +8,7 @@ class XBCalendarHms extends XBCalendar {
     required super.onDone,
     super.key,
     super.onWillDone,
+    super.onMonthChange,
     super.onCancel,
     super.title,
     super.doneBtnText,

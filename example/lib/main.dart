@@ -112,6 +112,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   onDone: (value) {
                     selectedDates = value;
                   },
+                  onMonthChange: (value) {
+                    xbError(value);
+                  },
                 );
               },
             );
