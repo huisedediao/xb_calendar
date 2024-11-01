@@ -59,6 +59,12 @@ class XBCalendarYear {
       month.updateSelectState(selectedDates);
     }
   }
+
+  updateMark(List<DateTime>? markDates) {
+    for (var month in months) {
+      month.updateMark(markDates);
+    }
+  }
 }
 
 class XBCalendarMonth {
@@ -105,6 +111,12 @@ class XBCalendarMonth {
       }
     }
     return false;
+  }
+
+  updateMark(List<DateTime>? markDates) {
+    for (var element in days) {
+      element.isMark = isMark(element.dateTime, markDates);
+    }
   }
 
   /// 本月有多少行
@@ -189,7 +201,7 @@ class XBCalendarDay {
   bool isToday;
   bool isSelectedStart = false;
   bool isSelectedEnd = false;
-  final bool isMark;
+  bool isMark;
   XBCalendarDay(
       {required this.dateTime,
       required this.isEnable,

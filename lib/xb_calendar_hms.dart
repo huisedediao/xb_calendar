@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xb_calendar/xb_calendar.dart';
 import 'package:xb_calendar/xb_calendar_hms_vm.dart';
 import 'package:xb_scaffold/xb_scaffold.dart';
+import 'xb_calendar_vm.dart';
 
 class XBCalendarHms extends XBCalendar {
   XBCalendarHms({
@@ -21,7 +22,8 @@ class XBCalendarHms extends XBCalendar {
     super.monthUnit = "月",
     super.weekDays,
     super.display,
-    super.markDates,
+    super.initMarkDates,
+    super.dataStream,
   }) : assert(selectedDates == null || selectedDates.length < 2,
             "selectedDates.length must be less than 2");
 

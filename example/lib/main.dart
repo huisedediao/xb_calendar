@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:xb_calendar/xb_calendar.dart';
 import 'package:xb_calendar/xb_calendar_display.dart';
@@ -60,6 +62,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<DateTime> selectedDates = [];
+  StreamController<XBCalendarStreamData> dataStreamController =
+      StreamController();
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -78,12 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   minEnableDateTime: DateTime(2021, 11, 5),
                   maxEnableDateTime: DateTime(2024, 11, 25),
                   selectedDates: selectedDates,
-                  markDates: [
-                    DateTime(2024, 10, 30),
-                    DateTime(2024, 10, 31),
-                    DateTime(2024, 11, 1),
-                    DateTime(2024, 11, 2)
-                  ],
+                  initMarkDates: [DateTime(2024, 11, 1), DateTime(2024, 11, 2)],
                   // isSingle: true,
                   display: XBCalendarDisplay(
                     dMarkSize: 5,
@@ -114,12 +113,35 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   onMonthChange: (value) {
                     xbError(value);
+                    if (value.month == 10) {
+                      dataStreamController.add(XBCalendarStreamData(markDates: [
+                        DateTime(2024, 10, 30),
+                        DateTime(2024, 10, 31)
+                      ]));
+                    } else if (value.month == 11) {
+                      dataStreamController.add(XBCalendarStreamData(markDates: [
+                        DateTime(2024, 11, 1),
+                        DateTime(2024, 11, 2)
+                      ]));
+                    } else if (value.month == 12) {
+                      dataStreamController.add(XBCalendarStreamData(markDates: [
+                        DateTime(2024, 12, 10),
+                        DateTime(2024, 12, 11)
+                      ]));
+                    }
                   },
+                  dataStream: dataStreamController.stream,
                 );
               },
             );
           },
-          child: const Text("图片编辑")),
+          child: const Text("展示日历")),
     );
+  }
+
+  @override
+  void dispose() {
+    dataStreamController.close();
+    super.dispose();
   }
 }

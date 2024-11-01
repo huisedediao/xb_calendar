@@ -1,5 +1,5 @@
-import 'package:xb_calendar/xb_calendar.dart';
 import 'package:xb_scaffold/xb_scaffold.dart';
+import 'xb_calendar_vm.dart';
 
 class XBCalendarHmsVM extends XBCalendarVM {
   XBCalendarHmsVM({required super.context}) {
