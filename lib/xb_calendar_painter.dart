@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:xb_calendar/xb_calendar_config.dart';
 import 'xb_calendar_display.dart';
-import 'xb_calendar_model.dart'; // 假设这个是你的模型文件
+import 'xb_calendar_model.dart';
+export 'xb_calendar_hms.dart';
 
 class XBCalendarPainter extends CustomPainter {
   final XBCalendarMonth month; // 传入一个月的数据

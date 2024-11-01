@@ -78,11 +78,14 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
 
   @override
   generateVM(BuildContext context) {
-    tempContext ??= context;
     return XBCalendarVM(context: context);
   }
 
   double get _closeW => 25;
+
+  Widget hms(XBCalendarVM vm) {
+    return Container();
+  }
 
   @override
   Widget buildWidget(XBCalendarVM vm, BuildContext context) {
@@ -197,6 +200,7 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
                 },
               ),
             )),
+            hms(vm),
             xbSpaceHeight(10),
             Padding(
               padding: EdgeInsets.only(
@@ -204,13 +208,7 @@ class XBCalendar extends XBWidget<XBCalendarVM> {
                   right: spaces.gapDef,
                   bottom: safeAreaBottom + spaces.gapDef),
               child: XBButton(
-                  onTap: () async {
-                    bool pass = onWillDone?.call(vm.selectedDates) ?? true;
-                    if (pass) {
-                      pop();
-                      onDone.call(vm.selectedDates);
-                    }
-                  },
+                  onTap: vm.onDone,
                   child: ClipRRect(
                     borderRadius:
                         BorderRadius.circular(display?.dDoneBtnRadius ?? 6),
@@ -281,7 +279,17 @@ class XBCalendarVM extends XBVM<XBCalendar> {
   late DateTime minDateTime;
   late DateTime maxDateTime;
 
+  late bool isSingle;
+
   late List<Widget> weekDaysWidgets;
+
+  onDone() async {
+    bool pass = widget.onWillDone?.call(selectedDates) ?? true;
+    if (pass) {
+      pop();
+      widget.onDone.call(selectedDates);
+    }
+  }
 
   @override
   widgetSizeDidChanged() {
@@ -289,6 +297,8 @@ class XBCalendarVM extends XBVM<XBCalendar> {
   }
 
   XBCalendarVM({required super.context}) {
+    isSingle = widget.isSingle;
+    tempContext ??= context;
     createDateTime = DateTime.now();
     minDateTime = widget.minDateTime ?? DateTime(createYear - 25, 1);
     maxDateTime = widget.maxDateTime ?? DateTime(createYear + 25, 1);
@@ -395,7 +405,7 @@ class XBCalendarVM extends XBVM<XBCalendar> {
   Map<int, XBCalendarYear> years = {};
 
   onSelectDate(DateTime dateTime) {
-    if (selectedDates.length == 2 || widget.isSingle) {
+    if (selectedDates.length == 2 || isSingle) {
       selectedDates.clear();
     }
     selectedDates.add(dateTime);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xb_calendar/xb_calendar.dart';
 import 'package:xb_calendar/xb_calendar_display.dart';
+import 'package:xb_calendar/xb_calendar_hms.dart';
 import 'package:xb_scaffold/xb_scaffold.dart';
 
 void main() {
@@ -71,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
               isDismissible: false,
               enableDrag: false,
               builder: (BuildContext context) {
-                return XBCalendar(
+                return XBCalendarHms(
                   minDateTime: DateTime(2021, 11),
                   maxDateTime: DateTime(2025, 10),
                   minEnableDateTime: DateTime(2021, 11, 5),
