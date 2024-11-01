@@ -392,8 +392,12 @@ class XBCalendarVM extends XBVM<XBCalendar> {
   }
 
   updateYears() {
+    if (selectedDates.isEmpty) return;
     for (var year in years.values) {
-      year.updateSelectState(selectedDates);
+      if (selectedDates.first.year <= year.year &&
+          year.year <= selectedDates.last.year) {
+        year.updateSelectState(selectedDates);
+      }
     }
   }
 
