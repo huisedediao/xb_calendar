@@ -92,11 +92,14 @@ class XBCalendarMonth {
   }
 
   /// 本月有多少行
+  int? _lineCount;
   int get lineCount {
-    int residue = (days.length + firstDayWeekDayIndex) % 7;
-    int ret =
-        (days.length + firstDayWeekDayIndex) ~/ 7 + (residue != 0 ? 1 : 0);
-    return ret;
+    if (_lineCount == null) {
+      int residue = (days.length + firstDayWeekDayIndex) % 7;
+      _lineCount =
+          (days.length + firstDayWeekDayIndex) ~/ 7 + (residue != 0 ? 1 : 0);
+    }
+    return _lineCount!;
   }
 
   /// 本月第一天，是周几（从周日开始算，周日为0）
