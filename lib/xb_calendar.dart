@@ -332,11 +332,16 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     return _monthCount!;
   }
 
+  final Map<int, XBCalendarMonth> _monthForIndexMap = {};
   XBCalendarMonth monthForIndex(int index) {
+    if (_monthForIndexMap[index] != null) {
+      return _monthForIndexMap[index]!;
+    }
     int i = 0;
     for (var year in years.values) {
       for (var month in year.months) {
         if (i == index) {
+          _monthForIndexMap[index] = month;
           return month;
         }
         i++;
