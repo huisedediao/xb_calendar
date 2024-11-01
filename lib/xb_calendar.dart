@@ -318,14 +318,18 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     controller.jumpTo(offsetForDateTime(createDateTime));
   }
 
+  int? _monthCount;
   int get monthCount {
-    int i = 0;
-    for (var year in years) {
-      for (var _ in year.months) {
-        i++;
+    if (_monthCount == null) {
+      int i = 0;
+      for (var year in years) {
+        for (var _ in year.months) {
+          i++;
+        }
       }
+      _monthCount = i;
     }
-    return i;
+    return _monthCount!;
   }
 
   XBCalendarMonth monthForIndex(int index) {
