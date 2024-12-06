@@ -63,7 +63,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<DateTime> selectedDates = [];
   StreamController<XBCalendarStreamData> dataStreamController =
-      StreamController();
+      StreamController.broadcast();
   @override
   Widget build(BuildContext context) {
     return Center(

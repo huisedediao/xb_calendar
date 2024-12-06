@@ -81,12 +81,8 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     super.dispose();
   }
 
-  double _lastOffset = 0;
   offsetListener() {
-    if ((controller.offset - _lastOffset).abs() > 10) {
-      _lastOffset = controller.offset;
-      notify();
-    }
+    notify();
   }
 
   goCurrentDay() {
@@ -125,24 +121,25 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     throw Exception("传入的序号不对");
   }
 
-  final Map<String, double> _offsetForYearMonthMap = {};
+  final Map<int, double> _yearOffsetCache = {};
+  void calculateYearOffsets() {
+    double offset = 0;
+    for (var year in years.values) {
+      _yearOffsetCache[year.year] = offset;
+      offset += year.height;
+    }
+  }
+
   double offsetForDateTime(DateTime dateTime) {
-    String key = "${dateTime.year}_${dateTime.month}";
-    if (_offsetForYearMonthMap[key] != null) {
-      return _offsetForYearMonthMap[key]!;
+    final int year = dateTime.year;
+    if (!_yearOffsetCache.containsKey(year)) {
+      calculateYearOffsets();
     }
-    double ret = 0;
-    for (var element in years.values) {
-      if (element.year < dateTime.year) {
-        ret += element.height;
-      } else if (element.year == dateTime.year) {
-        ret += element.offset(dateTime.month);
-        break;
-      } else {
-        break;
-      }
+    double ret = _yearOffsetCache[year] ?? 0.0;
+    final XBCalendarYear? calendarYear = years[year];
+    if (calendarYear != null) {
+      ret += calendarYear.offset(dateTime.month);
     }
-    _offsetForYearMonthMap[key] = ret;
     return ret;
   }
 
@@ -286,7 +283,7 @@ class XBCalendarVM extends XBVM<XBCalendar> {
         (year == minDateTime.year && month < minDateTime.month)) return;
     controller
         .animateTo(offsetForDateTime(DateTime(year, month)),
-            duration: const Duration(milliseconds: 500), curve: Curves.linear)
+            duration: const Duration(milliseconds: 5), curve: Curves.linear)
         .then((value) => notify());
   }
 
@@ -303,7 +300,7 @@ class XBCalendarVM extends XBVM<XBCalendar> {
         (year == maxDateTime.year && month > maxDateTime.month)) return;
     controller
         .animateTo(offsetForDateTime(DateTime(year, month)),
-            duration: const Duration(milliseconds: 500), curve: Curves.linear)
+            duration: const Duration(milliseconds: 5), curve: Curves.linear)
         .then((value) => notify());
   }
 }
