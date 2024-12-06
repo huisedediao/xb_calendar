@@ -104,21 +104,21 @@ class XBCalendarVM extends XBVM<XBCalendar> {
   }
 
   final Map<int, XBCalendarMonth> _monthForIndexMap = {};
-  XBCalendarMonth monthForIndex(int index) {
-    if (_monthForIndexMap[index] != null) {
-      return _monthForIndexMap[index]!;
-    }
-    int i = 0;
+  void buildMonthIndexCache() {
+    int index = 0;
     for (var year in years.values) {
       for (var month in year.months) {
-        if (i == index) {
-          _monthForIndexMap[index] = month;
-          return month;
-        }
-        i++;
+        _monthForIndexMap[index] = month;
+        index++;
       }
     }
-    throw Exception("传入的序号不对");
+  }
+
+  XBCalendarMonth monthForIndex(int index) {
+    if (_monthForIndexMap.isEmpty) {
+      buildMonthIndexCache();
+    }
+    return _monthForIndexMap[index]!;
   }
 
   final Map<int, double> _yearOffsetCache = {};
