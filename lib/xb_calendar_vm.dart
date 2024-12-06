@@ -71,6 +71,8 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     weekDaysWidgets = weekDays
         .map((day) => Expanded(child: Center(child: Text(day))))
         .toList();
+    _calcScrollYearInt();
+    _calcScrollMonthInt();
   }
 
   @override
@@ -82,6 +84,8 @@ class XBCalendarVM extends XBVM<XBCalendar> {
   }
 
   offsetListener() {
+    _calcScrollYearInt();
+    _calcScrollMonthInt();
     notify();
   }
 
@@ -175,7 +179,8 @@ class XBCalendarVM extends XBVM<XBCalendar> {
 
   List<DateTime> selectedDates = [];
 
-  int get scrollYearInt {
+  late int scrollYearInt;
+  void _calcScrollYearInt() {
     try {
       double offset = 0;
       XBCalendarYear? year;
@@ -186,12 +191,12 @@ class XBCalendarVM extends XBVM<XBCalendar> {
           break;
         }
       }
-      return year!.year;
+      scrollYearInt = year!.year;
     } catch (e) {
       if (widget.selectedDates == null || widget.selectedDates!.isEmpty) {
-        return createYear;
+        scrollYearInt = createYear;
       } else {
-        return widget.selectedDates!.first.year;
+        scrollYearInt = widget.selectedDates!.first.year;
       }
     }
   }
@@ -215,7 +220,8 @@ class XBCalendarVM extends XBVM<XBCalendar> {
     return null;
   }
 
-  int get scrollMonthInt {
+  late int scrollMonthInt;
+  void _calcScrollMonthInt() {
     try {
       XBCalendarYear year = yearModelForYear(scrollYearInt)!;
       double offset = offsetForDateTime(DateTime(year.year, 1));
@@ -226,12 +232,12 @@ class XBCalendarVM extends XBVM<XBCalendar> {
           break;
         }
       }
-      return month!.month;
+      scrollMonthInt = month!.month;
     } catch (e) {
       if (widget.selectedDates == null || widget.selectedDates!.isEmpty) {
-        return createMonth;
+        scrollMonthInt = createMonth;
       } else {
-        return widget.selectedDates!.first.month;
+        scrollMonthInt = widget.selectedDates!.first.month;
       }
     }
   }
